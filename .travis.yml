@@ -1,6 +1,9 @@
 language: node_js
 node_js:
   - "9"
+env:
+  global:
+    - secure: "cfv733KtSaFj4LsgEMWaUEsGtGVpuAp+ZhuCIj9skZBEOJcERvU92/bqkpEJ0IT3jBlSJt3IkpXO2q+000gGaW3lFoRQ2pFhJfh8FyfCuicX5HmiJt5H7rVtXbqVg6/eizQVaGjG97tMQ0CK0RJNeeMx9/t1ojT0WrDNiUZ4xhTS0yZckWbpwP5fL8E2IC7sKOy4ZyxLP4snqK2L1p35GNWytghLGCVfUunl7eM5Fm5BUVbiV391kyCABtEwiZZ/gstOuSn5AeKF5BC7IKZeHaXS/kKOTMtFSEqMmbprePEK+sODpIzSIB9kwtcXQEdXU2UEGHVwQfNnFa6k8qla6UWFGwgyGIA0O94y/1YWIG/IQVVWZ9MG5jpFH7tWqq16yvzgjXec/tGKNjo2ZOPtLKR47FCT+uxIlyzE5sc+aSgzZGdZ9IQ4RnCy+x8vBOce1t9fWj1w+nTzW8exMqx9ybPqyhaxOgJDdRESMhOxKzIewI6vPdUANiidtCScgVeIuVjS5DRAvD8tDLK72SU2QiKVQCDBH2NfyQVC7BszchyPMVztF+secnBrIwVEO8dvR3DScks1W9/rK6lBqB7zJlBONCUEFxBYe75eO+omvbjq4BsPy93c1GYc9DUrIxEFMPU9XW+mlCUBEKYVLmYAkxRK8W88hliBdUJCDHNXbJA="
 dist: trusty
 sudo: required
 branches:
@@ -18,3 +21,8 @@ deploy:
   local_dir: dist/todo
   on:
     branch: master
+addons:
+  sonarcloud:
+    organization: "szotaa-github"
+    token:
+      secure: $SONAR_TOKEN
