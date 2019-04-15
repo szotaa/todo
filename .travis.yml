@@ -13,6 +13,7 @@ before_script:
   - npm install -g @angular/cli
 script:
   - ng lint
+  - sonar-scanner
   - ng build --prod --base-href https://szotaa.github.io/todo/
 deploy:
   provider: pages
