@@ -1,4 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import {LoginRequest} from '../../models/login-request';
+import {Store} from '@ngrx/store';
+import * as fromAuth from '../../+state/auth.reducers';
+import {LoginAttempt} from '../../+state/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -8,13 +12,13 @@ import {Component, OnInit} from '@angular/core';
 export class LoginComponent implements OnInit {
 
   constructor(
+    private store: Store<fromAuth.State>
   ) { }
 
   ngOnInit() {
   }
 
-  catch(event: any) {
-    console.log('catches');
-    console.log(event);
+  catch(loginRequest: LoginRequest) {
+    this.store.dispatch(new LoginAttempt(loginRequest));
   }
 }

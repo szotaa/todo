@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 
-import {concatMap} from 'rxjs/operators';
+import {concatMap, tap} from 'rxjs/operators';
 import {EMPTY} from 'rxjs';
 import {AuthActions, AuthActionTypes} from './auth.actions';
 
@@ -11,8 +11,9 @@ export class AuthEffects {
 
 
   @Effect()
-  loadAuths$ = this.actions$.pipe(
-    ofType(AuthActionTypes.LoadAuths),
+  loginAttempt = this.actions$.pipe(
+    ofType(AuthActionTypes.LoginAttempt),
+    tap(action => console.log('elo', action)),
     /** An EMPTY observable only emits completion. Replace with your own observable API request */
     concatMap(() => EMPTY)
   );
