@@ -1,24 +1,24 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 
-import {concatMap, tap} from 'rxjs/operators';
-import {EMPTY} from 'rxjs';
+import {exhaustMap, tap} from 'rxjs/operators';
 import {AuthActions, AuthActionTypes} from './auth.actions';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 
 @Injectable()
 export class AuthEffects {
 
-
   @Effect()
   loginAttempt = this.actions$.pipe(
     ofType(AuthActionTypes.LoginAttempt),
-    tap(action => console.log('elo', action)),
-    /** An EMPTY observable only emits completion. Replace with your own observable API request */
-    concatMap(() => EMPTY)
-  );
+    exhaustMap(action => this.fireAuth.auth.signInWithEmailAndPassword(action.loginRequest.username, action.loginRequest.password)))
+    .pipe(tap(response => console.log(response.user)));
 
 
-  constructor(private actions$: Actions<AuthActions>) {}
+  constructor(
+    private actions$: Actions<AuthActions>,
+    private fireAuth: AngularFireAuth
+  ) {}
 
 }
