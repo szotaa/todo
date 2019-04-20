@@ -10,6 +10,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,9 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
     AppRoutingModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25
+    }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule
   ],
