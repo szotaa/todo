@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginRequest} from '../../models/login-request';
+import {LoginRequest} from '../../models/login.request';
 import {Store} from '@ngrx/store';
 import * as fromAuth from '../../+state/auth.reducers';
 import {LoginAttempt} from '../../+state/auth.actions';

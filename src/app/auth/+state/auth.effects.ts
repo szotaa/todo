@@ -15,6 +15,12 @@ export class AuthEffects {
     exhaustMap(action => this.fireAuth.auth.signInWithEmailAndPassword(action.loginRequest.username, action.loginRequest.password)))
     .pipe(tap(response => console.log(response.user)));
 
+  @Effect()
+  registerAttempt = this.actions$.pipe(
+    ofType(AuthActionTypes.RegisterAttempt),
+    exhaustMap(action => this.fireAuth.auth.createUserWithEmailAndPassword(action.registerRequest.email, action.registerRequest.password)),
+    tap(response => console.log(response))
+  );
 
   constructor(
     private actions$: Actions<AuthActions>,
