@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import {LoginRequest} from '../models/login.request';
 import {RegisterRequest} from '../models/register.request';
+import {User} from 'firebase';
 
 export enum AuthActionTypes {
   LoginAttempt = '[Login] Login Attempt',
@@ -18,6 +19,7 @@ export class LoginAttempt implements Action {
 
 export class LoginSuccess implements Action {
   readonly type = AuthActionTypes.LoginSuccess;
+  constructor(public user: User) {}
 }
 
 export class LoginFailure implements Action {

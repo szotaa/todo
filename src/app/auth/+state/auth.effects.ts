@@ -6,6 +6,8 @@ import {AuthActions, AuthActionTypes, LoginFailure, LoginSuccess, RegisterFailur
 import {AngularFireAuth} from '@angular/fire/auth';
 import {of} from 'rxjs/internal/observable/of';
 import {Router} from '@angular/router';
+import {fromPromise} from 'rxjs/internal-compatibility';
+import UserCredential = firebase.auth.UserCredential;
 
 
 @Injectable()
@@ -14,9 +16,11 @@ export class AuthEffects {
   @Effect()
   loginAttempt = this.actions$.pipe(
     ofType(AuthActionTypes.LoginAttempt),
-    exhaustMap(action => this.fireAuth.auth.signInWithEmailAndPassword(action.loginRequest.username, action.loginRequest.password)),
-    switchMap(() => of(new LoginSuccess())),
-    catchError(() => of(new LoginFailure()))
+    exhaustMap(action =>
+      fromPromise(this.fireAuth.auth.signInWithEmailAndPassword(action.loginRequest.username, action.loginRequest.password)).pipe(
+        switchMap((response: UserCredential) => of(new LoginSuccess(response.user))),
+        catchError(() => of(new LoginFailure()))
+      ))
   );
 
   @Effect({dispatch: false})
@@ -34,10 +38,11 @@ export class AuthEffects {
   @Effect()
   registerAttempt = this.actions$.pipe(
     ofType(AuthActionTypes.RegisterAttempt),
-    exhaustMap(action => this.fireAuth.auth.createUserWithEmailAndPassword(action.registerRequest.email, action.registerRequest.password)),
-    switchMap(() => of(new RegisterSuccess())),
-    catchError(() => of(new RegisterFailure()))
-  );
+    exhaustMap(action =>
+      of(this.fireAuth.auth.createUserWithEmailAndPassword(action.registerRequest.email, action.registerRequest.password)).pipe(
+        switchMap(() => of(new RegisterSuccess())),
+        catchError(() => of(new RegisterFailure()))
+  )));
 
   @Effect({dispatch: false})
   registerSuccess = this.actions$.pipe(
