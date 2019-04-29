@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {AuthRoutingModule} from './auth-routing.module';
 import {LoginUiComponent} from './components/login-ui/login-ui.component';
 import {LoginComponent} from './containers/login/login.component';
@@ -19,7 +18,6 @@ import {SharedModule} from '../shared/shared.module';
     RegisterComponent
   ],
   imports: [
-    CommonModule,
     SharedModule,
     AuthRoutingModule,
     StoreModule.forFeature('auth', fromAuth.reducer),
