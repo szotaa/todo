@@ -5,6 +5,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [],
@@ -16,6 +17,7 @@ import {environment} from '../../environments/environment';
       maxAge: 25
     }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
   ]
 })
 export class CoreModule { }
