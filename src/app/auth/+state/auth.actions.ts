@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/store';
+import {Action} from '@ngrx/store';
 import {LoginRequest} from '../models/login.request';
 import {RegisterRequest} from '../models/register.request';
 import {User} from 'firebase';

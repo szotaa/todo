@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RegisterUiComponent } from './register-ui.component';
+import {RegisterUiComponent} from './register-ui.component';
 
 describe('RegisterUiComponent', () => {
   let component: RegisterUiComponent;

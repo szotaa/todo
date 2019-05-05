@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TodoItem} from '../../models/todo.item';
 import * as fromDashboard from '../../+state/dashboard.reducers';
 import {Store} from '@ngrx/store';
-import {ModifiedTodoItem, New, UpdateTodoItems} from '../../+state/dashboard.actions';
+import {New} from '../../+state/dashboard.actions';
 
 @Component({
   selector: 'app-creator',
