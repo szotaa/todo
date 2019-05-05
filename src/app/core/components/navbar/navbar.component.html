@@ -1,0 +1,10 @@
+<nav class="navbar navbar-light bg-light mr-auto">
+  <a class="navbar-brand" routerLink="/">Todo App</a>
+  <ng-container *ngIf="!(isAuthenticated | async)">
+    <a class="nav-item text-dark" routerLink="/login">Login</a>
+    <a class="nav-item text-dark" routerLink="/register">Register</a>
+  </ng-container>
+  <ng-container *ngIf="isAuthenticated | async">
+    <a class="nav-item text-dark" routerLink="/dashboard">Dashboard</a>
+  </ng-container>
+</nav>

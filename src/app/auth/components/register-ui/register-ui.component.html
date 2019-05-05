@@ -1,9 +1,17 @@
+<h2 class="text-center">Register</h2>
+
+<div class="text-center text-danger" *ngIf="errored">
+  Something went wrong please try again.
+</div>
+
 <form class="form-group" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <label for="email">Email:</label>
   <input class="form-control" type="email" name="email" id="email" formControlName="email">
-  <label for="password">Password:</label>
-  <input class="form-control" type="password" name="password" id="password" formControlName="password">
-  <label for="repeatPassword">Repeat password:</label>
-  <input class="form-control" type="password" name="repeatPassword" id="repeatPassword" formControlName="repeatPassword">
-  <button class="btn btn-primary" type="submit">Register</button>
+  <ng-container formGroupName="passwords">
+    <label for="password">Password:</label>
+    <input class="form-control" type="password" name="password" id="password" formControlName="password">
+    <label for="repeatPassword">Repeat password:</label>
+    <input class="form-control" type="password" name="repeatPassword" id="repeatPassword" formControlName="repeatPassword">
+    <button class="btn btn-primary" type="submit" [disabled]="!registerForm.valid">Register</button>
+  </ng-container>
 </form>

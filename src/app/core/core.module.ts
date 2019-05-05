@@ -1,21 +1,25 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {StoreModule} from '@ngrx/store';
-import {EffectsModule} from '@ngrx/effects';
-import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
-import * as fromSession from './+state/session.reducers';
-import {StoreRouterConnectingModule} from '@ngrx/router-store';
+import {NavbarComponent} from './components/navbar/navbar.component';
+import {HomeComponent} from './components/home/home.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
-  declarations: [],
+  declarations: [NavbarComponent, HomeComponent],
   imports: [
     CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
-    StoreRouterConnectingModule.forRoot()
+    AngularFirestoreModule
+  ],
+  exports: [
+    NavbarComponent
   ]
 })
 export class CoreModule { }

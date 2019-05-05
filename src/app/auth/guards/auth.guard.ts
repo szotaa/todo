@@ -15,12 +15,11 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
-    /*return this.store.select('session').pipe(
+    return this.store.select('session').pipe(
       first(),
       map(user => {
         // @ts-ignore
-        if (user.session.id) {
+        if (user.session) {
           console.log('authenticated');
           return true;
         } else {
@@ -28,7 +27,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
           return false;
         }
       })
-    );*/
+    );
   }
   canActivateChild(
     next: ActivatedRouteSnapshot,

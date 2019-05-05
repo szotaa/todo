@@ -25,7 +25,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       maxAge: 250
-    })
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

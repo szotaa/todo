@@ -1,5 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RegisterRequest} from '../../models/register.request';
 
 @Component({
@@ -14,11 +14,16 @@ export class RegisterUiComponent implements OnInit {
 
   registerForm: FormGroup;
 
+  @Input()
+  errored: boolean;
+
   constructor(private formBuilder: FormBuilder) {
     this.registerForm = formBuilder.group({
-      email: [''],
-      password: [''],
-      repeatPassword: ['']
+      email: ['', [Validators.required, Validators.email]],
+      passwords: this.formBuilder.group({
+        password: ['', [Validators.required, Validators.min(5)]],
+        repeatPassword: ['']
+      }, {validator: [this.matchValidator]})
     });
   }
 
@@ -28,5 +33,15 @@ export class RegisterUiComponent implements OnInit {
   onSubmit(): void {
     const registerRequest = this.registerForm.getRawValue() as RegisterRequest;
     this.formValueEmitter.emit(registerRequest);
+  }
+
+  private matchValidator(group: FormGroup) {
+    const password = group.controls.password;
+    const repeatPassword = group.controls.repeatPassword;
+
+    if (password.value !== repeatPassword.value) {
+      repeatPassword.setErrors({mismatch: true});
+    }
+    return null;
   }
 }

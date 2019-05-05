@@ -5,6 +5,7 @@ export enum DashboardActionTypes {
   QUERY = '[TodoItems] query',
   ADDED = '[TodoItems] added',
   MODIFIED = '[TodoItems] modified',
+  REMOVED = '[TodoItems] removed',
   UPDATE = '[TodoItems] update',
   SUCCESS = '[TodoItems] success',
   NEW = '[TodoItems] new'
@@ -22,6 +23,11 @@ export class AddedTodoItem implements Action {
 export class ModifiedTodoItem implements Action {
   readonly type = DashboardActionTypes.MODIFIED;
   constructor(public payload: TodoItem) {}
+}
+
+export class RemoveTodoItem implements Action {
+  readonly type = DashboardActionTypes.REMOVED;
+  constructor(public payload: string) {}
 }
 
 export class UpdateTodoItems implements Action {
@@ -48,5 +54,6 @@ export type DashboardActions =
   AddedTodoItem |
   ModifiedTodoItem |
   UpdateTodoItems |
+  RemoveTodoItem |
   Success |
   New ;

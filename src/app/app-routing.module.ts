@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AppComponent} from './app.component';
 import {AuthGuard} from './auth/guards/auth.guard';
+import {HomeComponent} from './core/components/home/home.component';
 
 const routes: Routes = [
-  {path: '', component: AppComponent},
+  {path: '', component: HomeComponent},
   {path: 'auth', loadChildren: './auth/auth.module#AuthModule'},
   {path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule', canActivate: [AuthGuard]} // todo: fix routing
 ];

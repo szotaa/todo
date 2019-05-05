@@ -1,5 +1,7 @@
-<div *ngFor="let item of items | async">
-  <p>{{item.title}}</p>
-  <p>{{item.description}}</p>
-  <p>{{item.date}}</p>
+<h1 class="text-center">Your todo items:</h1>
+<div *ngFor="let item of items | async ; let i = count">
+  <app-item [item]="item"></app-item>
+</div>
+<div *ngIf="(items | async)?.length === 0">
+  <p class="text-center">Add some items first ;)</p>
 </div>

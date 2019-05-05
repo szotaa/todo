@@ -12,7 +12,8 @@ export class ListUiComponent implements OnInit {
   @Input()
   items: Observable<TodoItem[]>;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

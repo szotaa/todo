@@ -1,4 +1,4 @@
-import {AuthActions, AuthActionTypes} from './auth.actions';
+import {AuthActions} from './auth.actions';
 import {User} from 'firebase';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import {createFeatureSelector} from '@ngrx/store';
@@ -14,8 +14,6 @@ export const initialState: State = userAdapter.getInitialState();
 
 export function reducer(state = initialState, action: AuthActions): State {
   switch (action.type) {
-    case AuthActionTypes.LoginSuccess:
-      return userAdapter.addOne(action.user, state);
 
     default:
       return state;

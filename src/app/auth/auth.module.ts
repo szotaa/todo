@@ -8,8 +8,9 @@ import {EffectsModule} from '@ngrx/effects';
 import {AuthEffects} from './+state/auth.effects';
 import {RegisterUiComponent} from './components/register-ui/register-ui.component';
 import {RegisterComponent} from './containers/register/register.component';
-import {SharedModule} from '../shared/shared.module';
 import {AuthGuard} from './guards/auth.guard';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -19,8 +20,10 @@ import {AuthGuard} from './guards/auth.guard';
     RegisterComponent
   ],
   imports: [
-    SharedModule,
+    CommonModule,
     AuthRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     StoreModule.forFeature('auth', fromAuth.reducer),
     EffectsModule.forFeature([AuthEffects])
   ],

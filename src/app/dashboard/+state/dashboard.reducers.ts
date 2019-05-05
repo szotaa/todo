@@ -16,6 +16,9 @@ export function reducer(state = initialState, action: DashboardActions): State {
     case DashboardActionTypes.ADDED:
       return todoItemAdapter.addOne(action.payload, state);
 
+    case DashboardActionTypes.REMOVED:
+      return todoItemAdapter.removeOne(action.payload, state);
+
     case DashboardActionTypes.MODIFIED:
       console.log(action);
       return todoItemAdapter.updateOne({

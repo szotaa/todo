@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {DashboardActions, DashboardActionTypes} from './dashboard.actions';
-import {exhaustMap, map, mergeMap, switchMap, withLatestFrom} from 'rxjs/operators';
+import {exhaustMap, map, mergeMap, switchMap, tap, withLatestFrom} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {TodoItem} from '../models/todo.item';
 import {fromPromise} from 'rxjs/internal-compatibility';
@@ -31,6 +31,17 @@ export class DashboardEffects {
         };
       })
     );
+
+  @Effect({dispatch: false})
+  delete$ = this.actions$.pipe(
+    ofType(DashboardActionTypes.REMOVED),
+    withLatestFrom(this.store),
+    tap(([action, storeState]) => {
+      // @ts-ignore
+      const id = storeState.session.session.id;
+      this.db.doc<TodoItem>(`todo-items/${id}/items/${action.payload}`).delete();
+    })
+  );
 
   @Effect()
   update$ = this.actions$.pipe(
