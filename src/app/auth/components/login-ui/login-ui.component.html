@@ -1,5 +1,7 @@
-<form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value)">
-  <input type="text" id="username" name="username" ngModel>
-  <input type="password" id="password" name="password" ngModel>
-  <button type="submit">submit</button>
+<form class="form-group" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value)">
+  <label for="username">Email</label>
+  <input class="form-control" type="text" id="username" name="username" ngModel>
+  <label for="password">Password</label>
+  <input class="form-control" type="password" id="password" name="password" ngModel>
+  <button class="btn btn-primary" type="submit">submit</button>
 </form>

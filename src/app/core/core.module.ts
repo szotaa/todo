@@ -6,18 +6,16 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import * as fromSession from './+state/session.reducers';
+import {StoreRouterConnectingModule} from '@ngrx/router-store';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25
-    }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    StoreRouterConnectingModule.forRoot()
   ]
 })
 export class CoreModule { }

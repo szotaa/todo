@@ -9,6 +9,7 @@ import {AuthEffects} from './+state/auth.effects';
 import {RegisterUiComponent} from './components/register-ui/register-ui.component';
 import {RegisterComponent} from './containers/register/register.component';
 import {SharedModule} from '../shared/shared.module';
+import {AuthGuard} from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {SharedModule} from '../shared/shared.module';
     AuthRoutingModule,
     StoreModule.forFeature('auth', fromAuth.reducer),
     EffectsModule.forFeature([AuthEffects])
-  ]
+  ],
+  providers: [AuthGuard]
 })
 export class AuthModule { }

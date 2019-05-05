@@ -31,6 +31,5 @@ export function reducer(state = initialState, action: DashboardActions): State {
 export const getTodoItemsState = createFeatureSelector<State>('dashboard');
 
 export const {
-  selectIds,
   selectAll
 } = todoItemAdapter.getSelectors(getTodoItemsState);

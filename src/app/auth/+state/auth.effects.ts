@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-
-import {catchError, exhaustMap, switchMap, tap} from 'rxjs/operators';
+import {catchError, exhaustMap, map, mergeMap, switchMap, tap} from 'rxjs/operators';
 import {AuthActions, AuthActionTypes, LoginFailure, LoginSuccess, RegisterFailure, RegisterSuccess} from './auth.actions';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {of} from 'rxjs/internal/observable/of';
 import {Router} from '@angular/router';
 import {fromPromise} from 'rxjs/internal-compatibility';
 import UserCredential = firebase.auth.UserCredential;
+import {SetSession} from '../../core/+state/session.actions';
+import {Session} from '../../core/models/session';
 
 
 @Injectable()
@@ -23,10 +24,11 @@ export class AuthEffects {
       ))
   );
 
-  @Effect({dispatch: false})
+  @Effect()
   loginSuccess = this.actions$.pipe(
     ofType(AuthActionTypes.LoginSuccess),
-    tap(() => this.router.navigate(['/login']))// TODO: implement
+    exhaustMap(action => of(new SetSession(new Session(action.user)))),
+    tap(() => this.router.navigate(['/dashboard/dashboard'])), // TODO: implement
   );
 
   @Effect({dispatch: false})

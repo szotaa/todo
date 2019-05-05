@@ -1,9 +1,9 @@
-<form #todoForm="ngForm" (ngSubmit)="onSubmit(todoForm.value)">
+<form class="form-group" #todoForm="ngForm" (ngSubmit)="onSubmit(todoForm.value)">
   <label for="title">Title:</label>
-  <input type="text" id="title" name="title" ngModel>
+  <input class="form-control" type="text" id="title" name="title" ngModel>
   <label for="details">Description:</label>
-  <input type="text" id="details" name="details" ngModel>
+  <input class="form-control" type="text" id="details" name="details" ngModel>
   <label for="date">Date:</label>
-  <input type="date" id="date" name="date" ngModel>
-  <button type="submit">Add</button>
+  <input class="form-control" type="date" id="date" name="date" ngModel>
+  <button class="btn btn-primary" type="submit">Add</button>
 </form>

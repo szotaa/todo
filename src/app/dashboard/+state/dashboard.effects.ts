@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {DashboardActions, DashboardActionTypes, New} from './dashboard.actions';
-import {exhaustMap, map, mergeMap, switchMap, tap} from 'rxjs/operators';
+import {DashboardActions, DashboardActionTypes} from './dashboard.actions';
+import {exhaustMap, map, mergeMap, switchMap, withLatestFrom} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {TodoItem} from '../models/todo.item';
 import {fromPromise} from 'rxjs/internal-compatibility';
+import {Store} from '@ngrx/store';
+import * as fromSession from '../../core/+state/session.reducers';
 
 @Injectable()
 export class DashboardEffects {
@@ -12,7 +14,12 @@ export class DashboardEffects {
   @Effect()
   query = this.actions$.pipe(
     ofType(DashboardActionTypes.QUERY),
-    switchMap(() => this.db.collection<TodoItem>('todo-items').stateChanges()),
+    withLatestFrom(this.store),
+    switchMap(([action, storeState]) => {
+      // @ts-ignore
+      const id = storeState.session.session.id;
+      return  this.db.collection<TodoItem>('todo-items').doc(id).collection('items').stateChanges();
+    }),
     mergeMap(actions => actions),
     map(action => {
       return {
@@ -28,10 +35,12 @@ export class DashboardEffects {
   @Effect()
   update$ = this.actions$.pipe(
     ofType(DashboardActionTypes.UPDATE),
-    switchMap(data => {
-      console.log(data);
-      const ref = this.db.doc<TodoItem>(`todo-items/${data.id}`);
-      return fromPromise(ref.update(data.changes));
+    withLatestFrom(this.store),
+    switchMap(([action, storeState]) => {
+      // @ts-ignore
+      const id = storeState.session.session.id;
+      const ref = this.db.doc<TodoItem>(`todo-items/${id}/items/${action.id}`);
+      return fromPromise(ref.update(action.changes));
     }),
     map(() => DashboardActionTypes.SUCCESS)
   );
@@ -39,11 +48,17 @@ export class DashboardEffects {
   @Effect({dispatch: false})
   new = this.actions$.pipe(
     ofType(DashboardActionTypes.NEW),
-    exhaustMap(action => fromPromise(this.db.collection('todo-items').add(action.payload))),
+    withLatestFrom(this.store),
+    exhaustMap(([action, storeState]) => {
+      // @ts-ignore
+      const id = storeState.session.session.id;
+      return this.db.collection('todo-items').doc(id).collection('items').add(action.payload);
+    })
   );
 
   constructor(
     private actions$: Actions<DashboardActions>,
+    private store: Store<fromSession.State>,
     private db: AngularFirestore
   ) {}
 }
