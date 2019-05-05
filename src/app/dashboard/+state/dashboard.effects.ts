@@ -4,7 +4,6 @@ import {DashboardActions, DashboardActionTypes} from './dashboard.actions';
 import {exhaustMap, map, mergeMap, switchMap, tap, withLatestFrom} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {TodoItem} from '../models/todo.item';
-import {fromPromise} from 'rxjs/internal-compatibility';
 import {Store} from '@ngrx/store';
 import * as fromSession from '../../core/+state/session.reducers';
 
@@ -41,19 +40,6 @@ export class DashboardEffects {
       const id = storeState.session.session.id;
       this.db.doc<TodoItem>(`todo-items/${id}/items/${action.payload}`).delete();
     })
-  );
-
-  @Effect()
-  update$ = this.actions$.pipe(
-    ofType(DashboardActionTypes.UPDATE),
-    withLatestFrom(this.store),
-    switchMap(([action, storeState]) => {
-      // @ts-ignore
-      const id = storeState.session.session.id;
-      const ref = this.db.doc<TodoItem>(`todo-items/${id}/items/${action.id}`);
-      return fromPromise(ref.update(action.changes));
-    }),
-    map(() => DashboardActionTypes.SUCCESS)
   );
 
   @Effect({dispatch: false})

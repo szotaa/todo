@@ -20,10 +20,8 @@ export class AuthGuard implements CanActivate, CanActivateChild {
       map(user => {
         // @ts-ignore
         if (user.session) {
-          console.log('authenticated');
           return true;
         } else {
-          console.log('unauthenticated');
           return false;
         }
       })

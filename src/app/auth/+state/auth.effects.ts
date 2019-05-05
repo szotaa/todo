@@ -28,7 +28,7 @@ export class AuthEffects {
   loginSuccess = this.actions$.pipe(
     ofType(AuthActionTypes.LoginSuccess),
     exhaustMap(action => of(new SetSession(new Session(action.user)))),
-    tap(() => this.router.navigate(['/dashboard/dashboard'])),
+    tap(() => this.router.navigate(['/dashboard'])),
   );
 
   @Effect({dispatch: false})

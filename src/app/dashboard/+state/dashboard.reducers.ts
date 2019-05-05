@@ -19,13 +19,6 @@ export function reducer(state = initialState, action: DashboardActions): State {
     case DashboardActionTypes.REMOVED:
       return todoItemAdapter.removeOne(action.payload, state);
 
-    case DashboardActionTypes.MODIFIED:
-      console.log(action);
-      return todoItemAdapter.updateOne({
-        id: action.payload.id,
-        changes: action.payload
-      }, state);
-
       default:
         return state;
   }

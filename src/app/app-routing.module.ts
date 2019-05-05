@@ -6,7 +6,7 @@ import {HomeComponent} from './core/components/home/home.component';
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'auth', loadChildren: './auth/auth.module#AuthModule'},
-  {path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule', canActivate: [AuthGuard]} // todo: fix routing
+  {path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule', canActivate: [AuthGuard]}
 ];
 
 @NgModule({
