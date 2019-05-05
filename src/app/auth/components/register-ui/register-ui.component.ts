@@ -31,8 +31,8 @@ export class RegisterUiComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const registerRequest = this.registerForm.getRawValue() as RegisterRequest;
-    this.formValueEmitter.emit(registerRequest);
+    const registerRequest = this.registerForm.getRawValue();
+    this.formValueEmitter.emit({email: registerRequest.email, password: registerRequest.passwords.password});
   }
 
   private matchValidator(group: FormGroup) {

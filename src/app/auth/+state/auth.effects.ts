@@ -34,7 +34,7 @@ export class AuthEffects {
   @Effect({dispatch: false})
   loginFailure = this.actions$.pipe(
     ofType(AuthActionTypes.LoginFailure),
-    tap(() => this.router.navigate(['/login?error=true']))
+    tap(() => this.router.navigate(['/login'], {queryParams: {error: true}}))
   );
 
   @Effect()
@@ -49,13 +49,13 @@ export class AuthEffects {
   @Effect({dispatch: false})
   registerSuccess = this.actions$.pipe(
     ofType(AuthActionTypes.RegisterSuccess),
-    tap(() => this.router.navigate(['/login?registered=true']))
+    tap(() => this.router.navigate(['/login'], {queryParams: {registered: true}}))
   );
 
   @Effect({dispatch: false})
   registerFailure = this.actions$.pipe(
     ofType(AuthActionTypes.RegisterFailure),
-    tap(() => this.router.navigate(['/register?error=true']))
+    tap(() => this.router.navigate(['/register'], {queryParams: {error: true}}))
   );
 
   constructor(
