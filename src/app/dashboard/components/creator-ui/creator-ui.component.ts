@@ -1,20 +1,14 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {TodoItem} from '../../models/todo.item';
 
 @Component({
   selector: 'app-creator-ui',
-  templateUrl: './creator-ui.component.html',
-  styleUrls: ['./creator-ui.component.scss']
+  templateUrl: './creator-ui.component.html'
 })
-export class CreatorUiComponent implements OnInit {
+export class CreatorUiComponent {
 
   @Output()
   todoItemEmitter = new EventEmitter<TodoItem>();
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
   onSubmit(todoItem: TodoItem): void {
     this.todoItemEmitter.emit(todoItem);

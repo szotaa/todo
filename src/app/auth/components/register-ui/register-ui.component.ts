@@ -4,10 +4,9 @@ import {RegisterRequest} from '../../models/register.request';
 
 @Component({
   selector: 'app-register-ui',
-  templateUrl: './register-ui.component.html',
-  styleUrls: ['./register-ui.component.scss']
+  templateUrl: './register-ui.component.html'
 })
-export class RegisterUiComponent implements OnInit {
+export class RegisterUiComponent {
 
   @Output()
   formValueEmitter = new EventEmitter<RegisterRequest>();
@@ -25,9 +24,6 @@ export class RegisterUiComponent implements OnInit {
         repeatPassword: ['']
       }, {validator: [this.matchValidator]})
     });
-  }
-
-  ngOnInit() {
   }
 
   onSubmit(): void {
